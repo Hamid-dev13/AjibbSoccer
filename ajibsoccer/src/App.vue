@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-    <AjibSoccer /> <
+    <router-view /> <!-- Utilise router-view pour afficher le composant approprié -->
   </div>
 </template>
 
 <script>
-import AjibSoccer from './components/AjibSoccer.vue'; // Assurez-vous que le chemin est correct
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../src/style.css'; // Importation des styles globaux
+
 export default {
-  components: {
-    AjibSoccer // Utilisation de AjibSoccer ici
-  }
+  // Pas besoin d'importer de composants ici
 };
 </script>
 
 <style>
-/* Ajoutez ici vos styles si nécessaire */
+/* Styles globaux peuvent être ajoutés ici */
 </style>

@@ -18,12 +18,12 @@
   export default {
     data() {
       return {
-        team1: [], // Joueurs de l'équipe 1
-        team2: []  // Joueurs de l'équipe 2
+        team1: [], 
+        team2: []  
       };
     },
     mounted() {
-      // Tu peux récupérer les joueurs ici ou les passer par props
+     
     }
   };
   </script>
