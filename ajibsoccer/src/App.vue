@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <AjibSoccer /> <!-- Utilisez le nom de composant avec une première lettre en majuscule -->
+    <AjibSoccer /> <
   </div>
 </template>
 

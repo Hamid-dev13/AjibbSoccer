@@ -16,23 +16,22 @@
   </div>
 </template>
 
-
 <script>
+import { fetchPlayers } from '../services/fetchPlayers';  // Fichier pour récupérer les joueurs
+import { addPlayer } from '../services/addPlayer';        // Service pour ajouter un joueur
+import { deletePlayer } from '../services/deletePlayer';  // Service pour supprimer un joueur
+
 export default {
   data() {
     return {
-      players: [], // Liste des joueurs
-      newPlayer: "" // Nouveau joueur à ajouter
+      players: [], 
+      newPlayer: "" 
     };
   },
   methods: {
-    async fetchPlayers() {
+    async loadPlayers() {
       try {
-        const response = await fetch("http://localhost:3000/players");
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        this.players = await response.json();
+        this.players = await fetchPlayers();  // Récupérer la liste des joueurs via le service
       } catch (error) {
         console.error('Erreur lors de la récupération des joueurs:', error);
       }
@@ -40,20 +39,9 @@ export default {
     async addPlayer() {
       if (this.newPlayer) {
         try {
-          const response = await fetch("http://localhost:3000/players", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ name: this.newPlayer })
-          });
-
-          if (!response.ok) {
-            throw new Error('Erreur lors de l\'ajout du joueur');
-          }
-
-          this.newPlayer = ""; // Réinitialiser le champ
-          await this.fetchPlayers(); // Recharger la liste des joueurs
+          await addPlayer(this.newPlayer);    // Ajouter un joueur via le service
+          this.newPlayer = "";                // Réinitialiser le champ après ajout
+          this.loadPlayers();                 // Recharger la liste après ajout
         } catch (error) {
           console.error('Erreur lors de l\'ajout du joueur:', error);
         }
@@ -61,22 +49,15 @@ export default {
     },
     async deletePlayer(name) {
       try {
-        const response = await fetch(`http://localhost:3000/players/${name}`, {
-          method: "DELETE"
-        });
-
-        if (!response.ok) {
-          throw new Error('Erreur lors de la suppression du joueur');
-        }
-
-        await this.fetchPlayers(); // Recharger la liste des joueurs après suppression
+        await deletePlayer(name);             // Supprimer un joueur via le service
+        this.loadPlayers();                   // Recharger la liste après suppression
       } catch (error) {
         console.error('Erreur lors de la suppression du joueur:', error);
       }
     }
   },
   mounted() {
-    this.fetchPlayers(); // Récupérer la liste des joueurs à l'initialisation
+    this.loadPlayers(); // Charger la liste des joueurs lors du montage du composant
   }
 };
 </script>
@@ -84,17 +65,6 @@ export default {
 <style scoped>
 .form-control:focus {
   border-color: grey;
-  box-shadow:none;
-}
-.player-form {
-  margin-bottom: 20px;
-}
-
-button {
-  margin-left: 10px; /* Ajoute un peu d'espace entre le nom et le bouton */
-}
-
-a {
-  color: #42b983;
+  box-shadow: none;
 }
 </style>
