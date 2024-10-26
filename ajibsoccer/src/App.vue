@@ -5,13 +5,9 @@
 </template>
 
 <script>
-import '../src/style.css'; // Importation des styles globaux
-
+import '../src/style.css'; 
 export default {
-  // Pas besoin d'importer de composants ici
+  
 };
 </script>
 
-<style>
-/* Styles globaux peuvent être ajoutés ici */
-</style>
