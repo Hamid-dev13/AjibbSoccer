@@ -3,26 +3,30 @@
     <h1 class="text-5xl font-bold text-center">Ajib Soccer</h1>
   </div>
 
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto p-4 flex flex-col items-center">
     <h2 class="text-3xl font-bold text-center">Ajouter un match</h2>
-    <form @submit.prevent="submitMatch" class="mt-5">
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="matchName">Nom du match</label>
-        <input v-model="matchName" id="matchName" type="text" placeholder="Entrez le nom du match" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+    <form @submit.prevent="submitMatch" class="mt-5 w-full flex flex-col items-center">
+      <div class="mb-4 w-full flex flex-col gap-5 items-center">
+        <input v-model="matchName" id="matchName" type="text" placeholder="Entrez le nom du match" class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter le Match</button>
       </div>
-      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter le Match</button>
     </form>
 
-    <div class="mt-10">
-      <h2 class="text-3xl font-bold text-center">Liste des matchs</h2>
-      <ul class="mt-5">
-        <li v-for="(match, index) in matches" :key="index" class="mb-2 text-xl text-center">
+    <div class="mt-10 w-full flex flex-col items-center">
+      <h2 class="text-3xl font-bold text-center">Matchs à venir</h2>
+      <ul class="mt-5 w-full flex flex-col gap-5 items-center">
+        <li v-for="(match, index) in matches" :key="index" class="text-xl bg-gray-300 rounded border-solid p-5 w-1/2 flex items-center justify-between">
           {{ match.name }}
+          <div class="flex gap-2">
+            <button><i class="fa-solid fa-pen"></i></button>
+            <button><i class="fa-solid fa-trash-can"></i></button>
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </template>
+
 
 <script>
 import { addMatch, getMatches } from '../services/matchService';
