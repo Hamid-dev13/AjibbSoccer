@@ -2,7 +2,7 @@ const apiUrl = "http://localhost:3000/players";
 
 export async function deletePlayer(playerName) {
   try {
-    const response = await fetch(`${apiUrl}/${playerName}`, {
+    const response = await fetch(`${apiUrl}`, {
       method: "DELETE"
     });
 

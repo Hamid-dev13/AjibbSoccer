@@ -70,3 +70,24 @@ app.delete('/matches/:name', (req, res) => {
   matches.splice(matchIndex, 1);
   res.status(204).send(); 
 });
+
+
+//modifier le nom du match
+app.put('/matches/:name', (req, res) => {
+  const matchName = req.params.name; 
+  const matchIndex = matches.findIndex(match => match.name === matchName); 
+
+  if (matchIndex === -1) {
+    return res.status(404).send('Match not found');
+  }
+
+  // Vérifiez si req.body contient des données valides
+  if (!req.body || !req.body.name) {
+    return res.status(400).send('Invalid data provided');
+  }
+
+  // Mise à jour du match
+  matches[matchIndex] = { ...matches[matchIndex], ...req.body };
+
+  res.status(204).send();
+});
