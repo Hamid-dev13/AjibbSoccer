@@ -54,8 +54,8 @@ export default {
 
         if (result.success) {
           alert(result.message);
-          this.matchName = ''; // Réinitialise le champ de saisie
-          await this.loadMatches(); // Recharge les matchs
+          this.matchName = ''; 
+          await this.loadMatches(); 
         } else {
           alert(result.message);
         }
