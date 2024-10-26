@@ -57,3 +57,16 @@ app.get('/matches', (req, res) => {
 app.listen(port, () => {
   console.log(`Serveur en écoute sur le port ${port}`);
 });
+
+// route pour supprimer un match
+app.delete('/matches/:name', (req, res) => {
+  const matchName = req.params.name; 
+  const matchIndex = matches.findIndex(match => match.name === matchName); 
+
+  if (matchIndex === -1) {
+    return res.status(404).send({ message: 'Match non trouvé' }); 
+  }
+
+  matches.splice(matchIndex, 1);
+  res.status(204).send(); 
+});

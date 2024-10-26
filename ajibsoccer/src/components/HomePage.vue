@@ -19,8 +19,10 @@
           {{ match.name }}
           <div class="flex gap-2">
             <button><i class="fa-solid fa-pen"></i></button>
-            <button><i class="fa-solid fa-trash-can"></i></button>
+            <button @click="deleteMatch(match.name)"><i class="fa-solid fa-trash-can"></i></button>
+       
           </div>
+          
         </li>
       </ul>
     </div>
@@ -30,6 +32,8 @@
 
 <script>
 import { addMatch, getMatches } from '../services/matchService';
+import { deleteMatch as deleteMatchService } from '../services/DeleteMatch';
+
 
 export default {
   data() {
@@ -50,8 +54,8 @@ export default {
 
         if (result.success) {
           alert(result.message);
-          this.matchName = '';
-          await this.loadMatches();
+          this.matchName = ''; // Réinitialise le champ de saisie
+          await this.loadMatches(); // Recharge les matchs
         } else {
           alert(result.message);
         }
@@ -64,13 +68,27 @@ export default {
       try {
         const result = await getMatches();
         this.matches = result;
+        console.log("Match à l'index 1 :", this.matches[1]);
+      
+         
       } catch (error) {
         console.error("Erreur lors de la récupération des matchs :", error);
+      }
+    },
+    async deleteMatch(matchName) { 
+      try {
+        await deleteMatchService(matchName); 
+        alert("Match supprimé avec succès"); // Alerte de succès
+        await this.loadMatches(); 
+      } catch (error) {
+        console.error("Erreur lors de la suppression du match :", error);
+        alert("Erreur lors de la suppression du match.");
       }
     }
   },
   async mounted() {
-    await this.loadMatches();
+    await this.loadMatches(); // Charge les matchs lors du montage du composant
   }
 };
 </script>
+
